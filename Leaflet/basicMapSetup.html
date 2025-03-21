@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="Styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <!--Script for the leaflet maps-->
+
+    <!-- <script src="https://unpkg.com/@maptiler/geocoding-control@latest/dist/leaflet.umd.js"></script>
+    <link href="https://unpkg.com/@maptiler/geocoding-control@latest/dist/style.css"rel="stylesheet"/> -->
+    <!-- <style>
+        #map{position: absolute; top: 0; bottom: 0; left: 0; right: 0;}
+    </style> -->
+    <!--Built in styling, will probably not use in actual use-->
+
+    <meta charset="UTF-8" />
+    <title>Leaflet test</title>
+</head>
+<body>
+    <header>
+        <a><img src="SCI-Discover.png" class="logo"></a>
+        <div id = "topnav">
+            <a href="#home">Just Testin</a>
+            <a href="#test">Testin 2</a>
+            <a href="#test">Testin 3</a>
+            <a href="#test">Testin 4</a>
+        </div>
+    </header>
+
+    
+    <div id = "map"></div>
+
+    <script>
+        var map = L.map('map').setView([54,2], 6); //Can replace latitude and longitude here, along with zoom
+        L.tileLayer('https://api.maptiler.com/maps/basic-v2/{z}/{x}/{y}.png?key=Cs1Qm2J8Hutee5S4ILEg', {
+            attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
+
+            crossOrigin: true
+        }).addTo(map); //adds to the map id
+
+        var marker = L.marker([51, -0.09]).addTo(map); //Pointer uses lat and lon and is then added to map
+
+        var circle = L.circle([51.508, -0.11], {
+            color: 'blue',
+            fillColor: '#f03',
+            fillOpacity: 0.5,
+            radius: 500
+        }).addTo(map);
+        //Adds a circle to the map
+
+        var polygon = L.polygon([
+        [51.509, -0.08],
+        [51.503, -0.05],
+        [51.51, -0.0470],
+        [52.53, -0.06]
+        ]).addTo(map);
+        //Adds a polygon to the map using points
+
+        marker.bindPopup("<b> ARGH ARGH ARGH!</b> <br>IT'S A MARKER SQUIDDY!").openPopup(); //Can use popups as layers
+        circle.bindPopup("IT'S A CIRCLE SQUIDDY!");
+        polygon.bindPopup("IT'S A POLYGON SQUIDDY!");
+        //Adds notifications to the map
+
+        L.control.scale({
+            metric: true,
+            imperial: false,
+            position: 'bottomright'
+        }).addTo(map);
+        //Adds a scale you can move around for zooming in and zooming out
+
+        L.Control.Cat=L.Control.extend({
+            onAdd:function(map){
+                var img = L.DomUtil.create('img');
+                img.src = "C:\\Users\\lewac\\OneDrive\\Documents\\Le Cato.jpg";
+                img.style.width = '100px';
+                return img;
+            },
+            onRemove:function(map){},
+        });
+        //Adds a logo
+
+        L.control.Cat = function(opts){
+            return new L.Control.Cat(opts);
+        }
+        //Returns the picture
+        L.control.Cat({position:'bottomleft'}).addTo(map);
+        //Places it on the map
+    </script>
+</body>
+</html>
